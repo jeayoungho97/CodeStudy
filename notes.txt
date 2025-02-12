@@ -9,3 +9,5 @@ Date : 12/Feb/2025
     Preparing moving to a new house in the afternoon.
 
     moving to a new repository
+
+    git is actually very tricky...
