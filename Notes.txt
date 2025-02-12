@@ -1,9 +1,0 @@
-This study of Algorithms using C++ started on 08/Feb/2025
-
-Date : 12/Feb/2025
-
-    First upload to Github.
-
-    Studied "Absorbing Markov Chain" in the morning. (MIT OCW)
-
-    Preparing moving to a new house in the afternoon.
