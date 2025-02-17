@@ -1,3 +1,5 @@
+//Code made by my own -> sloppy!
+
 #include<bits/stdc++.h>
 using namespace std;
 int brk = 0;
