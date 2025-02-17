@@ -15,7 +15,7 @@ int main(){
     cout << "오름차순 정렬되지 않은 수열\n";
     do{
         printV(v);                                      // 단순하게 print 이지만 나중에 logic 넣을 수 있음.
-    }while(next_permutation(v.begin(),v.end()));        // next_permutation 으로 직접 v의 순열을 만듦.
+    }while(next_permutation(v.begin(),v.end()));        // next_permutation 으로 직접 v의 순열을 만듦. 
     cout << "--------------\n";
 
     v.clear();
@@ -24,7 +24,7 @@ int main(){
     cout << "오름차순 정렬된 수열\n";
     do{
         printV(v);
-    }while(next_permutation(v.begin(),v.end()));
+    }while(next_permutation(v.begin(),v.end()));        // next_permutation 의 결과는 boolean (새로운 수열이 이전 순열보다 사전적으로 큰 경우 1, 마지막에 0)
 
     return 0;
 }
