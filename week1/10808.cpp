@@ -1,23 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int main(){
+vector<int> ascii;                  // change the input string into ascii code and put it in a vector
+string input;
+int result;                         // globally declared, so initially 0
 
-    vector<int> ascii;
-    string input;
+int main(){
     cin >> input;
+
     for(char c : input){
         ascii.push_back(int(c));
     }
 
-    sort(ascii.begin(),ascii.end());    // ASCII 크기 순으로 분류가 필요할까?
-
     for(int i = 97; i < 123; i++){
-        int result = 0;
         for(int j : ascii){
             if (j == i)result += 1;
         }
-        cout << result << " ";
+        cout << result << " ";      // print for each alphabet
     }
 }
 
