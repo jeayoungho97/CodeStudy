@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/simon/Desktop/코테 공부/CodeStudy",
-      "program": "/Users/simon/Desktop/코테 공부/CodeStudy/build/Debug/outDebug"
+      "cwd": "/Users/simon/Desktop/코테 공부/CodeStudy/week1/K1213",
+      "program": "/Users/simon/Desktop/코테 공부/CodeStudy/week1/K1213/build/Debug/outDebug"
     }
   ]
 }
