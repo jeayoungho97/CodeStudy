@@ -16,8 +16,22 @@ Date : 12/Feb/2025
 
 Date : 17/Feb/2025
 
-    Been a tough week moving to a new home.
+    Been a tough week.. moving to a new home.
 
     Finally got the time to study alogithms.
 
-    Happy to be back. :)
+    Happy to be back!
+
+Date : 19/Feb/2025
+
+    Solved my first BaekJoon silver problems.
+
+    Feel like getting used to coding in c++.
+
+    Week 0 and Week 1 studies are doing their work.
+
+    Solving mainly Psum, Permutation, Split problems.
+
+Date : 20/Feb/2025
+
+    Finally free from cleaning and organizing our new home.
