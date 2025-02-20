@@ -1,25 +1,18 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-string input, pat;
-string fr, en;
-
+map<string,int> input;
+int gears[32], cases, n;
 int main(){
-    cin >> pat;
-    auto start = 0;
-    auto end = pat.find("*");
-    
-    fr = pat.substr(start, end-start); //front letters
-
-    start = end + 1;
-    
-    en = pat.substr(start);            //end letters
-
-    cin >> input;
-
-    if(input.length() < fr.length() + en.length()){
-        cout << input.length() << fr.length() << en.length() << en << size("the") << "Right\n";
-        
+    cin >> n;
+    for(int j = 0; j < n; j++){
+        string trash, gear;
+        cin >> trash >> gear;
+        if(input[gear])input[gear]++;
+        else input[gear]=1;
     }
-    else cout << input.length() << fr.length() << en.length() << size("*") << en << "Wrong\n";
+    for(auto pair : input){
+        cout << pair.second << " ";
+    }
+    cout << "\n";
     return 0;
 }
