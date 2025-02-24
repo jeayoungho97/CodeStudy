@@ -18,8 +18,8 @@ void print(){
   cout << '\n';
 }
 void makePermutation(int n, int r, int depth){
-    if(r == depth){ 
-        solve();
+    if(r == depth){
+        print();
         return;
     }
     for(int i = depth; i < n; i++){
@@ -27,7 +27,6 @@ void makePermutation(int n, int r, int depth){
         makePermutation(n, r, depth + 1);
         swap(a[i], a[depth]);
     }
-    return;
 }
 int main(){
     for(int i = 0; i < n; i++){

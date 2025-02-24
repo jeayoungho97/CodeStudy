@@ -2,28 +2,25 @@
 using namespace std;
 
 int N;
-string pat, fr, en, input;
+string pat, front, back, input;
 vector<string> result;
 
 int main(){
     cin >> N >> pat;
-    auto start = 0;
-    auto end = pat.find("*");
+    int end = pat.find("*");
     
-    fr = pat.substr(start, end-start); //front letters
+    front = pat.substr(0, end); //front letters
 
-    start = end + 1;                   // Wrong when I wrote ( start = end + size("*") ) ----> size("*") == 2 OMG this took so long to find
-    end = string::npos;
-
-    en = pat.substr(start);            //end letters
+    back = pat.substr(end + 1); //end letters
 
     for(int i = 0; i < N; i++){
         cin >> input;
-        if(input.length() < (fr.length() + en.length())){ // Why you need this : 1, in*ner, iner -> DA      NO!
+        // Why you need this : 1, in*ner, iner -> DA      NO!
+        if(input.length() < (front.length() + back.length())){ 
             result.push_back("NE\n");
             continue;
         }
-        else if(fr != input.substr(0, fr.length()) || en != input.substr(input.length() - en.length(), en.length())){
+        else if(front != input.substr(0, front.length()) || back != input.substr(input.length() - back.length(), back.length())){
             result.push_back("NE\n");
             continue;
         }

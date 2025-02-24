@@ -10,8 +10,8 @@ int main(){
     for(int i : cnt){
         if(i){
             if(i == 1)fee += a;
-            else if(i == 2)fee += 2*b;
-            else if(i == 3) fee += 3*c;
+            else if(i == 2)fee += 2 * b;
+            else if(i == 3) fee += 3 * c;
         }
     }
     cout << fee << "\n";
