@@ -63,6 +63,9 @@
     "string": "cpp",
     "__split_buffer": "cpp",
     "deque": "cpp",
-    "list": "cpp"
+    "list": "cpp",
+    "set": "cpp",
+    "regex": "cpp",
+    "sstream": "cpp"
   }
 }
