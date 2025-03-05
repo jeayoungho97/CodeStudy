@@ -10,7 +10,8 @@ void DFS(int y, int x){
     for(int i = 0; i < 4; i++){
         ny = y + dy[i];
         nx = x + dx[i];
-        if(ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] == 1)continue;
+        if(ny < 0 || nx < 0 || ny >= n || nx >= m)continue;
+        if(a[ny][nx] == 1) continue;
         DFS(ny,nx);
     }
     return;
