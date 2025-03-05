@@ -66,6 +66,8 @@
     "list": "cpp",
     "set": "cpp",
     "regex": "cpp",
-    "sstream": "cpp"
+    "sstream": "cpp",
+    "forward_list": "cpp",
+    "ios": "cpp"
   }
 }
