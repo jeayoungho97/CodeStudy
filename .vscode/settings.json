@@ -69,6 +69,16 @@
     "sstream": "cpp",
     "forward_list": "cpp",
     "ios": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "__hash_table": "cpp",
+    "__tree": "cpp",
+    "array": "cpp",
+    "bitset": "cpp",
+    "initializer_list": "cpp",
+    "queue": "cpp",
+    "string_view": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "valarray": "cpp"
   }
 }
