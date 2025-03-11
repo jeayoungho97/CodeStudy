@@ -1,14 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define y1 aaa
-int N, M, K, y1, y2, x1, x2, ny, nx, cnt1, cnt2, visited[101][101], Map[101][101];
+int N, M, K, y1, y2, x1, x2, ny, nx, cnt, visited[101][101], Map[101][101];
 vector<int> result;
 int dy[4] = {-1,0,1,0};
 int dx[4] = {0,1,0,-1};
 
 void DFS(int y, int x){
     visited[y][x] = 1;
-    cnt2++;
+    cnt++;
     for(int i = 0; i < 4; i++){
         ny = y + dy[i];
         nx = x + dx[i];
@@ -32,15 +32,14 @@ int main(){
     for(int i = 0; i < N; i++){
         for(int j = 0; j < M; j++){
             if(!visited[i][j] && Map[i][j] == 0){
-                cnt1++;
-                cnt2 = 0;
+                cnt = 0;
                 DFS(i,j);
-                result.push_back(cnt2);
+                result.push_back(cnt);
             }
         }
     }
     sort(result.begin(), result.end());
-    cout << cnt1 << '\n';
+    cout << result.size() << '\n';
     for(int i : result) cout << i << " ";
     cout << '\n';
     return 0;
