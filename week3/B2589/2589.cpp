@@ -14,6 +14,7 @@ int BFS(int y, int x){
     while(q.size()){
         y = q.front().first;
         x = q.front().second;
+        // tie(y,x) = q.front();
         q.pop();
         for(int i = 0; i < 4; i++){
             ny = y + dy[i];
@@ -30,7 +31,7 @@ int BFS(int y, int x){
 int main(){
     cin >> N >> M;
     cin.ignore();
-    
+
     for(int i = 0; i < N; i++){
         for(int j = 0; j < M; j++){
             cin >> Map[i][j];
