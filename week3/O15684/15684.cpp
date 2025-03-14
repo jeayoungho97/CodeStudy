@@ -1,6 +1,5 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-
 int N, M, H, a, b, cnt;
 vector<pair<int,int>> v[10];
 
@@ -10,14 +9,14 @@ bool cmp(pair<int,int> p1, pair<int,int> p2){
 
 bool check(){
     for(int line = 1; line < 10; line++){
-        sort(v[line].begin(), v[line].end(), cmp);
         stack<int> stk;
-        for(int i : v[line].second){
-            if(stk.size() && stk.top() == i) stk.pop();
-            else stk.push(i);
+        sort(v[line].begin(), v[line].end(), cmp);
+        for(int i = 0; i < v[line].size(); i++){
+            if(stk.size() && stk.top() == v[line][i].second) stk.pop();
+            else stk.push(v[line][i].second);
         }
+        if(stk.size()) return false;
     }
-    if(stk.size()) return false;
     return true;
 }
 
