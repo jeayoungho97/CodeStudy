@@ -1,0 +1,2 @@
+/Users/simon/Desktop/코테 공부/CodeStudy/week3/CMakeFiles/edit_cache.dir
+/Users/simon/Desktop/코테 공부/CodeStudy/week3/CMakeFiles/rebuild_cache.dir

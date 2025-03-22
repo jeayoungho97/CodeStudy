@@ -1,0 +1,35 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C++ Launch",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/Users/simon/Desktop/코테 공부/CodeStudy/week3/out",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "/Users/simon/Desktop/코테 공부/CodeStudy/week3",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "miDebuggerPath": "/opt/homebrew/bin/gdb",
+      "preLaunchTask": "clang++ build",
+      "serverLaunchTimeout": 10000,
+      "logging": {
+        "moduleLoad": false,
+        "trace": true,
+        "engineLogging": true
+      },
+      "debugServerArgs": "",
+      "debugServerPath": "",
+      "filterStderr": true
+    }
+  ]
+}
