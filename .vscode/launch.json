@@ -1,13 +1,30 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "lldb",
-      "request": "launch",
-      "args": [],
-      "cwd": "/Users/simon/Desktop/코테 공부/CodeStudy/week3/E12869",
-      "program": "/Users/simon/Desktop/코테 공부/CodeStudy/week3/E12869/build/Debug/outDebug"
-    }
-  ]
-}
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "LLDB: Debug a.out",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/a.out",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for lldb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": false
+          }
+        ],
+        "miDebuggerPath": "/usr/bin/lldb",
+        "preLaunchTask": "build",  // 빌드 작업이 있다면 사용
+        "logging": {
+          "moduleLoad": false
+        }
+      }
+    ]
+  }
+  
