@@ -36,4 +36,18 @@ Date : 20/Feb/2025
 
     Finally free from cleaning and organizing our new home.
 
+Date : 5/April/2025
+
+    Finally starting week4. Haven't been leaving notes since Feb 20th but now I'll keep it on.
+    -> Notes about each problem, each week and concepts.
+
+    Bit-Masking
+    ------------
+    turning off idx bit. -> S &= ~(1 << idx)
+    (ex) 
+    S =  18 // 10010
+    idx = 1
+    S &= ~(1 << idx)
+    S == 16 // 10000 
+
     
