@@ -80,3 +80,5 @@ int main(){
 
     return 0;
 }
+
+// something's wrong with finding the connectivity -> change tomorrow
