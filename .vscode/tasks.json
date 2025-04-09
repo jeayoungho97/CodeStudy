@@ -1,25 +1,12 @@
 {
-    "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build",
-            "type": "shell",
-            "command": "/opt/homebrew/bin/g++",
-            "args": [
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/a.out"
-            ],
-            "group": "build",
-            "problemMatcher": "$gcc"
-        },
-        {
             "type": "cppbuild",
-            "label": "C/C++: g++ 활성 파일 빌드",
-            "command": "/usr/local/bin/g++",
+            "label": "C/C++: clang++ 활성 파일 빌드",
+            "command": "/usr/bin/clang++",
             "args": [
-                "-fdiagnostics-color=always",
+                "-fcolor-diagnostics",
+                "-fansi-escape-codes",
                 "-g",
                 "${file}",
                 "-o",
@@ -37,5 +24,6 @@
             },
             "detail": "디버거에서 생성된 작업입니다."
         }
-    ]
+    ],
+    "version": "2.0.0"
 }

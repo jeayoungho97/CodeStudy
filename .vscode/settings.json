@@ -1,9 +1,7 @@
 {
-
-  "C_Cpp_Runner.cCompiler": "/usr/local/bin/g++",
-  "C_Cpp_Runner.cppCompiler": "/usr/local/bin/g++",
-  "C_Cpp_Runner.debuggerPath": "/opt/homebrew/bin/gdb",
-  "C_Cpp_Runner.defaultLanguage": "cpp",
+  "C_Cpp_Runner.cCompilerPath": "clang",
+  "C_Cpp_Runner.cppCompilerPath": "clang++",
+  "C_Cpp_Runner.debuggerPath": "lldb",
   "C_Cpp_Runner.cStandard": "",
   "C_Cpp_Runner.cppStandard": "",
   "C_Cpp_Runner.msvcBatchPath": "",
@@ -57,32 +55,5 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "files.associations": {
-    "vector": "cpp",
-    "iostream": "cpp",
-    "map": "cpp",
-    "string": "cpp",
-    "__split_buffer": "cpp",
-    "deque": "cpp",
-    "list": "cpp",
-    "set": "cpp",
-    "regex": "cpp",
-    "sstream": "cpp",
-    "forward_list": "cpp",
-    "ios": "cpp",
-    "stack": "cpp",
-    "__hash_table": "cpp",
-    "__tree": "cpp",
-    "array": "cpp",
-    "bitset": "cpp",
-    "initializer_list": "cpp",
-    "queue": "cpp",
-    "string_view": "cpp",
-    "unordered_map": "cpp",
-    "unordered_set": "cpp",
-    "valarray": "cpp",
-    "random": "cpp"
-  },
-  "C_Cpp.errorSquiggles": "disabled"
+  "C_Cpp_Runner.msvcSecureNoWarnings": false
 }
