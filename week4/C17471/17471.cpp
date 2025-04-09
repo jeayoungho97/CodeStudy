@@ -3,6 +3,7 @@
 #include <cmath>
 #include <algorithm>
 #include <queue>
+#include <unordered_set>
 
 using namespace std;
 
@@ -12,13 +13,14 @@ using namespace std;
 // 각 선거구의 인구의 합을 서로 비교함 -> 최소값 저장
 
 const int INF = 987654321;
-int N, population[11], ret = INF;
-vector<int> adj[11];
+const int MAX_N = 11;
+
+int N, population[MAX_N], ret = INF;
+vector<int> adj[MAX_N];
 
 // BFS 를 이용해 각 선거구의 구역이 연결되었는지 확인
 bool is_connected(const vector<int>& district){
-
-    if(district.empty()) return false;
+    unordered_set<int> district_set(district.begin(), district.end());
     vector<bool> visited(N + 1, false);
     queue<int> q;
 
@@ -30,7 +32,7 @@ bool is_connected(const vector<int>& district){
     while(!q.empty()){
         int here = q.front(); q.pop();
         for(int there : adj[here]){
-            if(!visited[there] && find(district.begin(), district.end(), there) != district.end()){
+            if(!visited[there] && district_set.count(there)){
                 visited[there] = true;
                 q.push(there);
                 cnt++;
@@ -60,24 +62,26 @@ int main(){
 
     // Operating phase
     for(int i = 0; i < (1 << N); i++){
+        // 선거구가 하나밖에 없는 경우 거름.
+        if(i == 0 || i == (1 << N) - 1) continue;
 
         // 선거구 구분
         int sum0 = 0, sum1 = 0;
-        vector<int> district[2];
+        vector<int> district0, district1;
         for(int j = 0; j < N; j++){
             if(i & (1 << j)){
                 // ex. 101100 -> 1,2,5 는 0선거구  3,4,6 은 1선거구
-                district[1].push_back(j + 1);
+                district1.push_back(j + 1);
                 sum1 += population[j + 1];
             }
             else {
-                district[0].push_back(j + 1);
+                district0.push_back(j + 1);
                 sum0 += population[j + 1];
             }
         }
 
         // 선거구 속 구역 모두 연결되었는지 확인
-        if(is_connected(district[0]) && is_connected(district[1])){
+        if(is_connected(district0) && is_connected(district1)){
             // 연결 모두 잘 되어있다면 각각의 구역의 인구의 차이를 뽑아냄
             ret = min(ret, abs(sum0 - sum1));
         }
