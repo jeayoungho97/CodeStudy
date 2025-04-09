@@ -2,6 +2,7 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <queue>
 
 using namespace std;
 
@@ -13,6 +14,33 @@ using namespace std;
 const int INF = 987654321;
 int N, population[11], ret = INF;
 vector<int> adj[11];
+
+// BFS 를 이용해 각 선거구의 구역이 연결되었는지 확인
+bool is_connected(const vector<int>& district){
+
+    if(district.empty()) return false;
+    vector<bool> visited(N + 1, false);
+    queue<int> q;
+
+    // 선거구의 첫번째 구역에서 시작해 퍼져나감
+    q.push(district[0]);
+    visited[district[0]] = true;
+    int cnt = 1;
+
+    while(!q.empty()){
+        int here = q.front(); q.pop();
+        for(int there : adj[here]){
+            if(!visited[there] && find(district.begin(), district.end(), there) != district.end()){
+                visited[there] = true;
+                q.push(there);
+                cnt++;
+            }
+        }
+    }
+
+    // 만일 cnt 와 district 의 크기가 다르다면 모든 구역이 다 연결되지 않았다는 뜻
+    return cnt == district.size();
+}
 
 int main(){
     // input phase
@@ -32,13 +60,13 @@ int main(){
 
     // Operating phase
     for(int i = 0; i < (1 << N); i++){
+
         // 선거구 구분
         int sum0 = 0, sum1 = 0;
-        bool flag = false;
         vector<int> district[2];
         for(int j = 0; j < N; j++){
             if(i & (1 << j)){
-                // 101100 -> 1,2,5 는 0선거구  3,4,6 은 1선거구
+                // ex. 101100 -> 1,2,5 는 0선거구  3,4,6 은 1선거구
                 district[1].push_back(j + 1);
                 sum1 += population[j + 1];
             }
@@ -48,29 +76,14 @@ int main(){
             }
         }
 
-        // 각 선거구에 적어도 하나 이상 구역이 있는지 확인
-        if(district[0].empty() || district[1].empty()) continue;
-
         // 선거구 속 구역 모두 연결되었는지 확인
-        for(int j : district[0]){
-            for(int k : district[0]){
-                if(find(adj[j].begin(), adj[j].end(), k) != adj[j].end()) continue; // 연결되었다면 컨티뉴
-                else flag = true; // 연결 안되었으면 다음 이진법으로 이동해야함
-            }
+        if(is_connected(district[0]) && is_connected(district[1])){
+            // 연결 모두 잘 되어있다면 각각의 구역의 인구의 차이를 뽑아냄
+            ret = min(ret, abs(sum0 - sum1));
         }
-        for(int j : district[1]){
-            for(int k : district[1]){
-                if(find(adj[j].begin(), adj[j].end(), k) != adj[j].end()) continue; // 연결되었다면 컨티뉴
-                else flag = true; // 연결 안되었으면 다음 이진법으로 이동해야함
-            }
-        }
-        if(flag) continue;
-        
-        // 연결 모두 잘 되어있다면 각각의 구역의 인구의 차이를 뽑아냄
-        ret = min(ret, abs(sum0 - sum1));
-
     }
 
+    // ret == INF 인 상태로 계속 있다면 모든 경우에서 두 개의 선거구로 나뉘어진 적이 없다는 뜻이므로 -1 제출
     if(ret == INF){
         cout << -1 << '\n';
         return 0;
@@ -80,5 +93,3 @@ int main(){
 
     return 0;
 }
-
-// something's wrong with finding the connectivity -> change tomorrow
