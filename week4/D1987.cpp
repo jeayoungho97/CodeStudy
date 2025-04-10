@@ -1,23 +1,30 @@
 #include <iostream>
 #include <algorithm>
 
-const int MAX_N = 21;
-const int dy[4] = {-1, 0, 1, 0};
-const int dx[4] = {0, 1, 0, -1};
-int row, col, result;
-char Map[MAX_N][MAX_N];
+constexpr int kMaxSize = 21;
+constexpr int kDirectionCount = 4;
 
-void go(int y, int x, int number, int count) {
-  result = std::max(result, count);
-  for (int i = 0; i < 4; i++) {
+const int dy[kDirectionCount] = {-1, 0, 1, 0};
+const int dx[kDirectionCount] = {0, 1, 0, -1};
+
+int row, col;
+int max_path_length = 0;
+char board[kMaxSize][kMaxSize];
+
+void DfsTraverse(int y, int x, int visited_bitmask, int count) {
+  max_path_length = std::max(max_path_length, count);
+
+  for (int i = 0; i < kDirectionCount; ++i) {
     int ny = y + dy[i];
     int nx = x + dx[i];
 
     if (ny < 0 || ny >= row || nx < 0 || nx >= col) continue;
-    int next = (1 << (int)(Map[ny][nx] - 'A'));
-    if(((number & next) == 0)) go(ny, nx, number | next, count + 1);
+
+    int next_bit = (1 << static_cast<int>(board[ny][nx] - 'A'));
+    if(((visited_bitmask & next_bit) == 0)) {
+      DfsTraverse(ny, nx, visited_bitmask | next_bit, count + 1);
+    } 
   }
-  return;
 }
 
 int main(){
@@ -25,11 +32,13 @@ int main(){
 
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j) {
-      std::cin >> Map[i][j];
+      std::cin >> board[i][j];
     }
   }
 
-  go(0, 0, 1 << (int)(Map[0][0] - 'A'), 1);
-  std::cout << result << '\n';
+  int start_bit = 1 << static_cast<int>(board[0][0] - 'A');
+  DfsTraverse(0, 0, start_bit, 1);
+  
+  std::cout << max_path_length << '\n';
   return 0;
 }
