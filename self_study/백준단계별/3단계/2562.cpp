@@ -1,22 +1,20 @@
 #include <iostream>
-#include <algorithm>
+#include <algorithm> // std::max_element, std::distance
+#include <array>
 
 int main()
 {
-  int max_index = 0;
-  int max_value = 0;
-  int numbers[9];
-
-  for (int i = 0; i < 9; ++i) {
-    std::cin >> numbers[i];
-    if (numbers[i] > max_value) {
-      max_value = numbers[i];
-      max_index = i + 1;
-    }
+  std::array<int, 9> numbers;
+  for (int& number : numbers){
+    std::cin >> number;
   }
+
+  auto max_iter = std::max_element(numbers.begin(), numbers.end());
+  int max_value = *max_iter;
+  int max_index = std::distance(numbers.begin(), max_iter) + 1;
 
   std::cout << max_value << '\n';
   std::cout << max_index << '\n';
-  
+
   return 0;
 }
