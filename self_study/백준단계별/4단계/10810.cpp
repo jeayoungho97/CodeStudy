@@ -1,24 +1,25 @@
 #include <iostream>
+#include <vector>
 
 int main() {
   int n, m;
   std::cin >> n >> m;
-  int* basket = new int[n]();
-  for (int temp = 0; temp < m; ++temp) {
-    int i, j, k;
-    std::cin >> i >> j >> k;
-    for (int a = i - 1; a < j; ++a) {
-      basket[a] = k;
+
+  std::vector<int> basket(n, 0);
+
+  for (int t = 0; t < m; ++t) {
+    int left, right, value;
+    std::cin >> left >> right >> value;
+
+    for (int i = left - 1; i < right; ++i) {
+      basket[i] = value;
     }
   }
 
-  for (int i = 0; i < n; ++i) {
-    std::cout << basket[i] << " ";
+  for (int val : basket) {
+    std::cout << val << " ";
   }
   std::cout << '\n';
 
-  delete[] basket;
-  basket = nullptr;
-  
   return 0;
 }
