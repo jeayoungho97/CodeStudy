@@ -1,71 +1,41 @@
 #include <iostream>
+#include <cmath>
 
 constexpr int kMaxSize = 101;
+
 int n, l;
 int result = 0;
 int board[kMaxSize][kMaxSize];
 
-bool check_row(int row) {
-  bool visited[kMaxSize][kMaxSize] = {};
+bool CheckLine(int index, bool row_mode) {
+  bool visited[kMaxSize] = {};
 
-  for (int col = 0; col < n - 1; ++col) {
-    int diff = board[row][col] - board[row][col + 1];
-
-    if (std::abs(diff) >= 2) return false;
-
-    if (diff == 1) {
-      if (col + l >= n || visited[row][col + 1]) return false;
-      else {
-        for (int i = 1; i <= l; ++i) {
-          if (board[row][col + i] != board[row][col + 1]) return false;
-          if (visited[row][col + i]) return false;
-          visited[row][col + i] = true;
-        }
-      }
-    }
-
-    if (diff == -1) {
-      if (col - (l - 1) < 0 || visited[row][col]) return false;
-      else {
-        for (int i = 0; i < l; ++i) {
-          if (board[row][col - i] != board[row][col]) return false;
-          if (visited[row][col - i]) return false;
-          visited[row][col - i] = true;
-        }
-      }
-    }
-  }
-
-  return true;
-}
-
-bool check_col(int col) {
-  bool visited[kMaxSize][kMaxSize] = {};
-
-  for (int row = 0; row < n - 1; ++row) {
-    int diff = board[row][col] - board[row + 1][col];
+  for (int i = 0; i < n - 1; ++i) {
+    int curr = row_mode ? board[index][i] : board[i][index];
+    int next = row_mode ? board[index][i + 1] : board[i + 1][index];
+    int diff = curr - next;
 
     if (std::abs(diff) >= 2) return false;
 
     if (diff == 1) {
-      if (row + l >= n || visited[row + 1][col]) return false;
-      else {
-        for (int i = 1; i <= l; ++i) {
-          if (board[row + i][col] != board[row + 1][col]) return false;
-          if (visited[row + i][col]) return false;
-          visited[row + i][col] = true;
-        }
+      for (int j = 1; j <= l; ++j) {
+        int ni = i + j;
+        if (ni >= n) return false;
+
+        int h = row_mode ? board[index][ni] : board[ni][index];
+        if (h != next || visited[ni]) return false;
+        visited[ni] = true;
       }
     }
 
     if (diff == -1) {
-      if (row - (l - 1) < 0 || visited[row][col]) return false;
-      else {
-        for (int i = 0; i < l; ++i) {
-          if (board[row - i][col] != board[row][col]) return false;
-          if (visited[row - i][col]) return false;
-          visited[row - i][col] = true;
-        }
+      for (int j = 0; j < l; ++j) {
+        int ni = i - j;
+        if (ni < 0) return false;
+
+        int h = row_mode ? board[index][ni] : board[ni][index];
+        if ( h != curr || visited[ni]) return false;
+        visited[ni] = true;
       }
     }
   }
@@ -83,8 +53,8 @@ int main() {
   }
 
   for (int i = 0; i < n; ++i) {
-    if(check_row(i)) ++result;
-    if(check_col(i)) ++result;
+    if(CheckLine(i, true)) ++result;
+    if(CheckLine(i, false)) ++result;
   }
 
   std::cout << result << '\n';
