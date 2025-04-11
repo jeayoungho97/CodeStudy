@@ -1,74 +1,71 @@
 #include <iostream>
-#include <algorithm>
-#include <string>
+#include <array>
 #include <vector>
-
-// 단어의 가르침 유무를 비트마스킹으로 처리
-// 인풋의 단어들 또한 비트마스킹
-// 두 단어를 & 연산한 결과가 인풋과 같다면 결과 + 1
-// 결과의 최댓값을 구함
+#include <string>
+#include <algorithm>
 
 int n, k;
-int antic;
-int result = 0;
-std::vector<int> words;
+std::vector<std::array<bool, 26>> words_bit;
 
-void num_antic(){
-  int temp = 1;
-  std::string antic_str = "antic";
-  for (int i = 0; i < 26; ++i) {
-    if(std::find(antic_str.begin(), antic_str.end(), i + 'a') != antic_str.end()) {
-      antic += temp;
-    }
-    temp *= 2;
-  }
-}
-
-void go(int number, int start) {
+int CountReadable(const std::array<bool, 26> known) {
   int count = 0;
-  for (int i = 0; i < 26; ++i) {
-    if((number) & (1 << i)) ++count;
-  }
-
-  if (count == k) {
-    int temp = 0;
-    int size = words.size();
-    for (int i = 0; i < size; ++i) {
-      if ((words[i] & number) == words[i]) {
-        ++temp;
+  for (const auto& word : words_bit) {
+    bool readable = true;
+    for (int i = 0; i < 26; ++i) {
+      if (word[i] && !known[i]) {
+        readable = false;
+        break;
       }
     }
-    result = std::max(result, temp);
+    if (readable) ++count;
+  }
+  return count;
+}
+
+int DFS(std::array<bool, 26>& known, int index, int learned) {
+  if (learned == k) {
+    return CountReadable(known);
   }
 
-  for (int i = start; i < 26; ++i) {
-    if(number & (1 << start) == 0)
+  int max_result = 0;
+  for (int i = index; i < 26; ++i) {
+    if (!known[i]) {
+      known[i] = true;
+      max_result = std::max(max_result, DFS(known, i + 1, learned + 1));
+      known[i] = false;
+    }
   }
+
+  return max_result;
 }
 
 int main() {
   std::cin >> n >> k;
 
-  for (int i = 0; i < n; ++i) {
-    std::string input;
-    std::cin >> input;
-
-    int num_bit = 0;
-    int temp = 1;
-
-    for (int j = 0; j < 26; ++j) {
-      if(std::find(input.begin(), input.end(), j + 'a') != input.end()) {
-        num_bit += temp;
-      }
-      temp *= 2;
-    }
-    words.push_back(num_bit);
+  if (k < 5) {
+    std::cout << 0 << '\n';
+    return 0;
   }
 
-  // a n t i c 는 이미 포함한채로 k - 5 개의 새로운 문자를 가르침
-  num_antic();
-  go(antic, 0);
+  std::string antic = "antic";
+  std::array<bool, 26> known = {};
+  for (char c : antic) {
+    known[c - 'a'] = true;
+  }
 
+  for (int i = 0; i < n; ++i) {
+    std::string str;
+    std::cin >> str;
+    
+    std::array<bool, 26> word = {};
+    for (char c : str) {
+      word[c - 'a'] = true;
+    }
+    words_bit.push_back(word);
+  }
+
+  int result = DFS(known, 0, 5);
   std::cout << result << '\n';
+
   return 0;
 }
