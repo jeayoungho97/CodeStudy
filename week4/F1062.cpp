@@ -1,70 +1,70 @@
 #include <iostream>
-#include <array>
-#include <vector>
-#include <string>
 #include <algorithm>
+#include <string>
+#include <vector>
+#include <array>
 
 int n, k;
+int result = 0;
 std::vector<std::array<bool, 26>> words_bit;
 
-int CountReadable(const std::array<bool, 26> known) {
+void go(std::array<bool, 26> word_bit, int start) {
   int count = 0;
-  for (const auto& word : words_bit) {
-    bool readable = true;
-    for (int i = 0; i < 26; ++i) {
-      if (word[i] && !known[i]) {
-        readable = false;
-        break;
+  for (int i = 0; i < 26; ++i) {
+    if (word_bit[i]) ++count;
+  }
+
+  if (count == k) {
+    int okay = 0;
+    int size = words_bit.size();
+    for (int i = 0; i < size; ++i) {
+      bool flag  = false;
+      for (int j = 0; j < 26; ++j) {
+        if(words_bit[i][j] && !word_bit[j]) {
+          flag = true;
+          break;
+        }
       }
+      if(flag) continue;
+      ++okay;
     }
-    if (readable) ++count;
-  }
-  return count;
-}
-
-int DFS(std::array<bool, 26>& known, int index, int learned) {
-  if (learned == k) {
-    return CountReadable(known);
+    result = std::max(result, okay);
   }
 
-  int max_result = 0;
-  for (int i = index; i < 26; ++i) {
-    if (!known[i]) {
-      known[i] = true;
-      max_result = std::max(max_result, DFS(known, i + 1, learned + 1));
-      known[i] = false;
+  for (int i = start; i < 26; ++i) {
+    if (word_bit[i] == false) {
+      word_bit[i] = true;
+      go(word_bit, i + 1);
+      word_bit[i] = false;
     }
   }
-
-  return max_result;
 }
 
 int main() {
   std::cin >> n >> k;
 
-  if (k < 5) {
-    std::cout << 0 << '\n';
-    return 0;
-  }
-
-  std::string antic = "antic";
-  std::array<bool, 26> known = {};
-  for (char c : antic) {
-    known[c - 'a'] = true;
-  }
-
   for (int i = 0; i < n; ++i) {
     std::string str;
     std::cin >> str;
     
-    std::array<bool, 26> word = {};
-    for (char c : str) {
-      word[c - 'a'] = true;
+    std::array<bool, 26> word_bit = {};
+    for (int j = 0; j < 26; ++j) {
+      if (std::find(str.begin(), str.end(), j + 'a') != str.end()) {
+        word_bit[j] = true;
+      }
     }
-    words_bit.push_back(word);
+    words_bit.push_back(word_bit);
   }
 
-  int result = DFS(known, 0, 5);
+  std::string antic_str = "antic";
+  std::array<bool,26> antic_bit = {};
+  for (int i = 0; i < 26; ++i) {
+    if (std::find(antic_str.begin(), antic_str.end(), i + 'a') != antic_str.end()) {
+      antic_bit[i] = true;
+    }
+  }
+
+  go(antic_bit, 0);
   std::cout << result << '\n';
 
   return 0;
