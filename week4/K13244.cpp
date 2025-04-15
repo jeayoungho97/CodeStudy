@@ -21,7 +21,7 @@ int main() {
     bool flag = false;
     int n;
     std::cin >> n;
-    std::vector<std::vector<int>> adj(n + 1);
+    std::vector<std::vector<int>> adj(n + 1); // count 에서 쓰기 위해 범위를 정해줘야함.
 
     int m;
     std::cin >> m;
