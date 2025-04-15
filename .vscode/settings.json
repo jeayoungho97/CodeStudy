@@ -60,6 +60,7 @@
     "iostream": "cpp",
     "array": "cpp",
     "ios": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "bitset": "cpp"
   }
 }
