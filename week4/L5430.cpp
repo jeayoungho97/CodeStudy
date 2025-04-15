@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <deque>
 #include <string>
 #include <algorithm>
 
@@ -18,14 +20,7 @@ int main() {
     std::cin >> op;
     std::cin >> n;
     std::cin >> num;
-
-    // RR 지우기
-    size_t pos;
-    std::string to_remove = "RR";
-    while ((pos = op.find(to_remove)) != std::string::npos) {
-      op.erase(pos, to_remove.length());
-    }
-
+    
     // D 개수와 n 비교하기
     if (std::count(op.begin(), op.end(), 'D') > n) {
       result.push_back("error");
@@ -33,7 +28,7 @@ int main() {
     }
     
     // [1,2,3,4] -> 배열로 변환
-    std::vector<int> arr;
+    std::deque<int> arr;
     std::string temp;
     for (char ch : num) {
       if (std::isdigit(ch)) {
@@ -45,33 +40,38 @@ int main() {
     }
 
     bool flag = false;
+    bool reversed = false;
 
     // operate phase
     for (char ch : op) {
       if (ch == 'R') {
-        std::reverse(arr.begin(), arr.end());
+        reversed ^= 1;
       }
       else {
-        if (arr.empty()) {
-          result.push_back("error");
-          flag = true;
-          break;
-        }
-        arr.erase(arr.begin());
+        if(reversed) arr.pop_back();
+        else arr.pop_front();
       }
     }
 
-    // 배열이 살아있는 경우 결과를 출력
-    if (!flag) {
-      std::string temp = "[";
-      for (int i : arr) {
-        temp += std::to_string(i);
-        temp += ',';
+    // 결과를 출력
+    std::string output = "[";
+
+    if (reversed) {
+      for (auto it = arr.rbegin(); it != arr.rend(); ++it) {
+        output += std::to_string(*it);
+        output += ',';
       }
-      temp.pop_back();
-      temp += ']';
-      result.push_back(temp);
+    } else {
+      for (auto it = arr.begin(); it != arr.end(); ++it) {
+        output += std::to_string(*it);
+        output += ',';
+      }
     }
+
+    if (!arr.empty()) output.pop_back();
+
+    output += ']';
+    result.push_back(output);
   }
   for (std::string str : result) {
     std::cout << str << '\n';
