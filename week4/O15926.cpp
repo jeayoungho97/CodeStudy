@@ -1,41 +1,33 @@
 #include <iostream>
-#include <string>
+#include <vector>
 #include <stack>
+#include <algorithm>
 
 int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
+  int n;
+  std::cin >> n;
+  std::vector<char> arr(n);
+  for (int i = 0; i < n; ++i) {
+    std::cin >> arr[i];
+  }
 
-    int n;
-    std::cin >> n;
+  std::stack<char> stk = {};
+  int result = 0;
 
-    std::string s;
-    std::cin >> s;
-
-    std::stack<int> stk = {};
-    int result = 0;
-    int invalid = -1;
-    for (int i = 0; i < n; ++i) {
-        char input = s[i];
-        if (input == '(') {
-            stk.push(i);
-        }
-        else {
-            if (stk.empty()) {
-                invalid = i;
-            }
-            else {
-                stk.pop();
-                if (stk.empty()) {
-                    result = std::max(result, i - invalid);
-                }
-                else {
-                    result = std::max(result, i - stk.top());
-                }
-            }
-        }
+  for (char ch : arr) {
+    if (ch == '(') {
+      stk.push(ch);
     }
+    else {
+      if (stk.empty()) {
+        continue;
+      }
+      else {
+        stk.pop();
 
-    std::cout << result << '\n';
-    return 0;
+      }
+    }
+  }
+
+  return 0;
 }
