@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
 
 int main() {
@@ -8,20 +9,21 @@ int main() {
   int n, m;
   std::cin >> n >> m;
 
-  int* arr = new int[n];
+  std::vector<int> baskets(n);
   for (int i = 0; i < n; ++i) {
-    arr[i] = i + 1;
+    baskets[i] = i + 1;
   }
 
   for (int i = 0; i < m; ++i) {
     int a, b;
     std::cin >> a >> b;
-    std::swap(arr[a - 1], arr[b - 1]);
+    std::swap(baskets[a - 1], baskets[b - 1]);
   }
 
   for (int i = 0; i < n; ++i) {
-    std::cout << arr[i] << " ";
+    std::cout << baskets[i] << ' ';
   }
   std::cout << '\n';
+  
   return 0;
 }
