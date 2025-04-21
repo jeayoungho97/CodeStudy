@@ -1,44 +1,42 @@
 #include <iostream>
-#include <queue>
 #include <vector>
+#include <queue>
 #include <algorithm>
 
 int main() {
-  int num_tasks;
-  std::cin >> num_tasks;
+  int n;
+  std::cin >> n;
 
-  std::vector<std::pair<int, int>> tasks;  // {deadline, reward}
+  std::vector<std::pair<int, int>> tasks;
 
-  for (int i = 0; i < num_tasks; ++i) {
-    int reward, deadline;
-    std::cin >> reward >> deadline;
-    tasks.emplace_back(deadline, reward);
+  for (int i = 0; i < n; ++i) {
+    int reward, date;
+    std::cin >> reward >> date;
+    tasks.push_back({date, reward});
   }
 
-  // Sort tasks by deadline (earliest first)
   std::sort(tasks.begin(), tasks.end());
 
-  // Min-heap to keep top rewards under each deadline constraint
-  std::priority_queue<int, std::vector<int>, std::greater<int>> min_heap;
+  std::priority_queue<int, std::vector<int>, std::greater<int>> pq;
 
-  for (const auto& task : tasks) {
-    int deadline = task.first;
+  for (auto task : tasks) {
     int reward = task.second;
+    int date = task.first;
+    pq.push(reward);
 
-    min_heap.push(reward);
-
-    // If we exceed the number of available days, discard the least rewarding task
-    if (static_cast<int>(min_heap.size()) > deadline) {
-      min_heap.pop();
+    if (static_cast<int>(pq.size()) > date) {
+      pq.pop();
     }
   }
 
-  int total_reward = 0;
-  while (!min_heap.empty()) {
-    total_reward += min_heap.top();
-    min_heap.pop();
+  int result = 0;
+
+  while(!pq.empty()) {
+    result += pq.top();
+    pq.pop();
   }
 
-  std::cout << total_reward << '\n';
+  std::cout << result << '\n';
+
   return 0;
 }
