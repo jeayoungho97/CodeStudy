@@ -1,28 +1,28 @@
 #include <iostream>
 #include <string>
-#include <vector>
 
 int main() {
-  std::string str, bomba;
-  std::cin >> str >> bomba;
+  std::string str, bomb;
+  std::cin >> str >> bomb;
 
-  size_t n = bomba.size();
-  std::vector<char> result;
+  std::string result = "";
 
   for (char ch : str) {
     result.push_back(ch);
 
-    if (result.size() >= n) {
-      bool is_bomba = true;
-      for (size_t i = 0; i < n; ++i) {
-        if (result[result.size() - n + i] != bomba[i]) {
-          is_bomba = false;
+    if (result.size() >= bomb.size()) {
+      int r_size = result.size();
+      int b_size = bomb.size();
+      bool is_bomb = true;
+
+      for (int i = 0; i < b_size; ++i) {
+        if (result[r_size - b_size + i] != bomb[i]) {
+          is_bomb = false;
           break;
         }
       }
-
-      if (is_bomba) {
-        for (int i = 0; i < n; ++i) {
+      if (is_bomb) {
+        for (int i = 0; i < b_size; ++i) {
           result.pop_back();
         }
       }
@@ -33,10 +33,8 @@ int main() {
     std::cout << "FRULA\n";
   }
   else {
-    for (char ch : result) {
-      std::cout << ch;
-    }
-    std::cout << '\n';
+    std::cout << result << '\n';
   }
+
   return 0;
 }
