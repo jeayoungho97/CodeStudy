@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/simon/Desktop/CodingTest/CodeStudy/week4/C17471",
-      "program": "/Users/simon/Desktop/CodingTest/CodeStudy/week4/C17471/build/Debug/outDebug"
+      "cwd": "/Users/simon/Desktop/CodingTest/CodeStudy/week5",
+      "program": "/Users/simon/Desktop/CodingTest/CodeStudy/week5/build/Debug/outDebug"
     }
   ]
 }
