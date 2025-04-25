@@ -15,27 +15,37 @@ int main() {
   int result = 0;
 
   for (int i = 0; i < k; ++i) {
-    if (std::find(multitab.begin(), multitab.end(), usage[i]) != multitab.end()) continue;
+    int current = usage[i];
+
+    if (std::find(multitab.begin(), multitab.end(), current) != multitab.end()) continue;
     
     int size = multitab.size();
     if (size < n) {
-      multitab.push_back(usage[i]);
+      multitab.push_back(current);
+      continue;
     }
-    else {
-      int index = 0;
-      auto first = std::find(usage.begin() + i + 1, usage.end(), multitab[index]);
 
-      for (int j = 1; j < size; ++j) {
-        auto second = std::find(usage.begin() + i + 1, usage.end(), multitab[j]);
-        if (first < second) {
-          index = j;
-          first = second;
+    int index_to_remove = -1;
+    int latest_use = -1;
+
+    for (int j = 0; j < size; ++j) {
+      int next_use = k + 1;
+
+      for (int l = i + 1; l < k; ++l) {
+        if (usage[l] == multitab[j]) {
+          next_use = l;
+          break;
         }
       }
 
-      multitab[index] = usage[i];
-      ++result;
+      if (next_use > latest_use) {
+        latest_use = next_use;
+        index_to_remove = j;
+      }
+
     }
+    multitab[index_to_remove] = current;
+    ++result;
   }
 
   std::cout << result << '\n';
