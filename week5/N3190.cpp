@@ -11,6 +11,10 @@ int board[MAX][MAX];
 std::vector<std::pair<int, char>> operation;
 
 int main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+
   std::cin >> N;
 
   int K;
@@ -42,14 +46,7 @@ int main() {
 
   while (true) {
     if (operation_index < operation.size() && operation[operation_index].first == time) {
-      if (operation[operation_index].second == 'L') {
-        --dir;
-        if (dir < 0) dir = 3;
-      }
-      else {
-        ++dir;
-        if (dir > 3) dir = 0;
-      }
+      dir = (dir + (operation[operation_index].second == 'L' ? 3 : 1)) % 4;
       ++operation_index;
     }
     
