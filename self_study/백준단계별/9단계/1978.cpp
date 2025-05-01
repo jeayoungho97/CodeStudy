@@ -1,4 +1,13 @@
 #include <iostream>
+#include <cmath>
+
+bool is_prime(int n) {
+  if (n <= 1) return false;
+  for (int i = 2; i * i <= n; ++i) {
+    if (n % i == 0) return false;
+  }
+  return true;
+}
 
 int main() {
   int N;
@@ -8,15 +17,7 @@ int main() {
   for (int i = 0; i < N; ++i) {
     int a;
     std::cin >> a;
-
-    bool flag = false;
-
-    if (a == 1) flag = true;
-    for (int j = 2; j <= a / 2; ++j) {
-      if (a % j == 0) flag = true;
-    }
-
-    if (!flag) ++result;
+    if (is_prime(a)) ++result;
   }
 
   std::cout << result << '\n';
