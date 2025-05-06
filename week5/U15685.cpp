@@ -6,7 +6,7 @@ const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, -1, 0, 1};
 
 std::vector<std::vector<int>> directions[4];
-bool visited[101][101] = {};
+bool map[101][101] = {};
 
 void make_directions(int dir) {
   directions[dir].resize(11);
@@ -24,13 +24,13 @@ void make_directions(int dir) {
 }
 
 void go (int x, int y, std::vector<int> path) {
-  visited[y][x] = true;
+  map[y][x] = true;
 
   for (int dir : path) {
     x += dx[dir];
     y += dy[dir];
     if (x < 0 || y < 0 || x > 100 || y > 100) continue;
-    visited[y][x] = true;
+    map[y][x] = true;
   }
   return;
 }
@@ -53,7 +53,7 @@ int main() {
   int result = 0;
   for (int i = 0; i < 100; ++i) {
     for (int j = 0; j < 100; ++j) {
-      if (visited[i][j] && visited[i + 1][j] && visited[i][j + 1] && visited[i + 1][j + 1]) ++result;
+      if (map[i][j] && map[i + 1][j] && map[i][j + 1] && map[i + 1][j + 1]) ++result;
     }
   }
 
