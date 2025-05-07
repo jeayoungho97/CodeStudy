@@ -1,96 +1,58 @@
 #include <iostream>
 #include <vector>
-
-int needs, N, M, result;
-std::vector<int> pizza1, pizza2;
-int psum1[1001], psum2[1001];
+#include <unordered_map>
 
 int main() {
-  std::cin >> needs;
+  int needs, N, M;
   std::cin >> N >> M;
 
-  for (int i = 1; i <= N; ++i) {
-    int temp;
-    std::cin >> temp;
-    psum1[i] = psum1[i - 1] + temp;
-    pizza1.push_back(temp);
-  }
+  std::vector<int> A(N), B(N);
+  for (int i = 0; i < N; ++i) std::cin >> A[i];
+  for (int i = 0; i < M; ++i) std::cin >> B[i];
 
-  for (int i = 1; i <= M; ++i) {
-    int temp;
-    std::cin >> temp;
-    psum2[i] = psum2[i - 1] + temp;
-    pizza2.push_back(temp);
-  }
+  auto get_sub_sums = [](const std::vector<int>& pizza) {
+    std::vector<int> sums;
+    int len = pizza.size();
+    std::vector<int> extended(pizza.begin(), pizza.end());
+    extended.insert(extended.end(), pizza.begin(), pizza.end());
 
-  for (int i = 0; i < N; ++i) {
-    for (int j = i + 1; j != i; ++j) {
-      int sum;
-      if (j >= N) j = 0;
-      
-      if (j < i) {
-        sum = psum1[N] - psum1[i] + psum1[j];
-      }
-      else {
-        sum = psum1[j] - psum1[i];
-      }
+    for (int size = 1; size < len; ++size) {
+      int sum = 0;
+      for (int i = 0; i < size; ++i) sum += extended[i];
+      sums.push_back(sum);
 
-      if (needs > psum2[M] + sum) continue;
-
-      if (sum == needs) {
-        ++result;
-        break;
-      }
-
-      if (sum > needs) break;
-
-      for (int k = 0; k < M; ++k) {
-        for (int l = k + 1; l != k; ++l) {
-          if (l >= M) l = 0;
-
-          int sum2;
-          if (l < k) {
-            sum2 = psum2[M] - psum2[k] + psum2[l];
-          }
-          else {
-            sum2 = psum2[l] - psum2[k];
-          }
-
-          int total = sum + sum2;
-
-          if (total == needs) {
-            ++result;
-            break;
-          }
-
-          if (total > needs) break;
-        }
+      for (int i = 1; i < len; ++i) {
+        sum = sum - extended[i - 1] + extended[i + size - 1];
+        sums.push_back(sum);
       }
     }
-  }
 
-  for (int i = 0; i < M; ++i) {
-    for (int j = i + 1; j != i; ++j) {
-      int sum;
-      if (j >= M) j = 0;
-      
-      if (j < i) {
-        sum = psum2[N] - psum2[i] + psum2[j];
-      }
-      else {
-        sum = psum2[j] - psum2[i];
-      }
+    int total = 0;
+    for (int v : pizza) total += v;
+    sums.push_back(total);
 
-      if (sum == needs) {
-        ++result;
-        break;
-      }
+    return sums;
+  };
 
-      if (sum > needs) break;
+  auto a_sums = get_sub_sums(A);
+  auto b_sums = get_sub_sums(B);
+
+  std::unordered_map<int, int> a_count, b_count;
+  for (int s : a_sums) ++a_count[s];
+  for (int s : b_sums) ++b_count[s];
+
+  int result = 0;
+
+  if (a_count.count(needs)) result += a_count[needs];
+  if (b_count.count(needs)) result += b_count[needs];
+
+  for (const auto& [a_sum, a_freq] : a_count) {
+    int rest = needs - a_sum;
+    if (b_count.count(rest)) {
+      result += a_freq * b_count[rest];
     }
   }
 
   std::cout << result << '\n';
-
   return 0;
 }
