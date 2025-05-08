@@ -8,6 +8,14 @@ const int dx[4] = {1, 0, -1, 0};
 int N, M, result = INF;
 std::array<std::array<int, 8>, 8> original_board;
 std::vector<std::pair<int, int>> CCTV;
+const std::vector<std::vector<std::vector<int>>> cctv_dirs = {
+  {},
+  {{0}, {1}, {2}, {3}},
+  {{0, 2}, {1, 3}},
+  {{0, 1}, {1, 2}, {2, 3}, {3, 0}},
+  {{0, 1, 2}, {1, 2, 3}, {2, 3, 0}, {3, 0, 1}},
+  {{0, 1, 2, 3}}
+};
 
 int count_zero(const std::array<std::array<int, 8>, 8>& board) {
   int sum = 0;
@@ -34,60 +42,24 @@ void DFS(int idx, std::array<std::array<int, 8>, 8>& board) {
     return;
   }
 
-  auto pos = CCTV[idx];
-  int y = pos.first;
-  int x = pos.second;
-  int num = board[y][x];
+  auto [y, x] = CCTV[idx];
+  int type = board[y][x];
 
-  switch(num) {
-    case 1 : 
-    for (int dir = 0; dir < 4; ++dir) {
-      auto board_copy = board;
-      watch(y, x, dir, board_copy);
-      DFS(idx + 1, board_copy);
-    }
-    break;
-
-    case 2 : 
-    for (int dir = 0; dir < 2; ++dir) {
-      auto board_copy = board;
-      watch(y, x, dir, board_copy);
-      watch(y, x, dir + 2, board_copy);
-      DFS(idx + 1, board_copy);
-    }
-    break;
-
-    case 3 : 
-    for (int dir = 0; dir < 4; ++dir) {
-      auto board_copy = board;
-      watch(y, x, dir, board_copy);
-      watch(y, x, (dir + 1) % 4 , board_copy);
-      DFS(idx + 1, board_copy);
-    }
-    break;
-
-    case 4 : 
-    for (int dir = 0; dir < 4; ++dir) {
-      auto board_copy = board;
-      watch(y, x, dir, board_copy);
-      watch(y, x, (dir + 1) % 4, board_copy);
-      watch(y, x, (dir + 2) % 4, board_copy);
-      DFS(idx + 1, board_copy);
-    }
-    break;
-
-    case 5 : 
+  for (const auto& dirs : cctv_dirs[type]) {
     auto board_copy = board;
-    for (int dir = 0; dir < 4; ++dir) {
+    for (int dir : dirs) {
       watch(y, x, dir, board_copy);
     }
     DFS(idx + 1, board_copy);
-    break;
   }
 }
 
 
 int main() {
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  std::cout.tie(nullptr);
+
   std::cin >> N >> M;
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < M; ++j) {
