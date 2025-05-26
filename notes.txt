@@ -95,12 +95,20 @@ Date : 26/May/2025
        최종적으론 left 가 답이 됨.
     
     <7795>
-    Main Logic (Binary Search) : 
+    Main Logic (Binary Search)
     1. 각 배열 1의 값에 대해 배열 2에서 이분탐색을 이용해 더 작은 숫자의 개수를 구한다. -> O(logM)
     2. 숫자의 총합을 출력
 
-    Main Logic (Two Pointer) :
+    Main Logic (Two Pointer)
     1. 위의 방법과 비슷하나, 배열 1도 오름차순 정렬을 한 뒤 배열 2애서 점점 포인터를 늘려가며 개수를 셈. -> O(1)
 
-    조심할 것 : 투 포인터가 훨씬 좋은 방법인듯?
+    Caution
+    1. 투 포인터가 훨씬 좋은 방법인듯?
+
+    <1269>
+    Main Logic
+    1. 두 배열을 오름차순 정렬한 뒤 크기가 다르면 ++count, 투포인터 느낌으로 풀었
+    음.
+
+    
 
