@@ -120,3 +120,11 @@ Date : 27/May/2025
     1. while 문으로 계산할 경우 Big - O 를 잘 계산해야함.
     2. hp / atk 가 공격횟수가 아닌, (hp + atk - 1) / atk 가 공격횟수임을 이용해야함.
 
+    <1072>
+    Main Logic 
+    1. ((Y + Z) / (X + Z)) > (Y / X) 인 Z 를 찾는 문제.
+    2. Binary Search 를 이용해서 Z 를 찾는다.
+    3. 단 99% 이상은 절대 1% 이상의 확률 상승이 있을 수 없으므로 -1 출력.
+
+    Caution
+    1. left < right 와 left <= right 의 차이점을 잘 구분하여 사용할 것.
