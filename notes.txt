@@ -134,3 +134,21 @@ Date : 28/May/2025
     Main Logic
     1. M 개의 숫자를 N 개의 정렬된 수열에서 Binary Search 를 하며 찾아냄.
     2. O(MlogN)
+
+    <14627>
+    Main Logic
+    1. 파닭에 들어가는 파의 양을 Binary Search 로 구한 뒤, 전체 파의 길이에서 사용한 만큼만 빼주면 된다.
+
+    Caution
+    1. right 가 파 중에서 가장 길이가 짧은 것이 아닌, 가장 긴 것으로 설정해줘야한다.
+    2. long long 계산을 할 때, 
+
+       static_cast<long long>(ans * C) 와
+
+       static_cast<long long>(ans) * c
+
+       는 명백히 다르다. 
+       위의 코드의 경우 ans * C 에서 이미 오버플로우가 난 후 long long 으로 승격이 되므로 잘못된 값이 들어감.
+       반면 아래의 코드는 ans 가 long long 으로 이미 승격이 된 후이므로 C 를 곱해주어도 오버플로우가 발생하지 않음.
+
+       즉, 타입을 변환할 때에는 계산한 뒤에 하는 것이 아닌, 계산하기 전 한 변수에 미리 해줘야함.
