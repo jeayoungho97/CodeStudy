@@ -128,3 +128,9 @@ Date : 27/May/2025
 
     Caution
     1. left < right 와 left <= right 의 차이점을 잘 구분하여 사용할 것.
+
+Date : 28/May/2025
+    <2776>
+    Main Logic
+    1. M 개의 숫자를 N 개의 정렬된 수열에서 Binary Search 를 하며 찾아냄.
+    2. O(MlogN)
