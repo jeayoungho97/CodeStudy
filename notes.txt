@@ -182,3 +182,10 @@ Date : 29/May/2025
        sdt::fixed << std::setprecision(3) << ans << '\n';
        를 하는 것이 정확하다.
     2. 이 때 <iomanip> 헤더를 추가해야함.
+
+    <11053>
+    Main Logic
+    1. 기본적인 LIS 알고리즘 -> 길이만 구하면 되고 N ~ 1000 이므로 O(N^2) 방법을 써도 충분함.
+    <14002>
+    Main Logic
+    1. 또한 마찬가지로 기본적인 LIS 알고리즘. 다만 수열까지 출력해야하므로 prev_list 로 idx 를 역추적해 나감.
