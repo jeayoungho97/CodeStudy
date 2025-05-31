@@ -202,3 +202,10 @@ Date : 29/May/2025
     Caution
     1. pair 를 사용했을 경우 first 와 second 를 혼동하지 않았는지 주의!
 
+Date : 1/June/2025
+    <2240>
+    Main Logic
+    1. DP 를 이용하여 푸는 문제 -> 강의 설명와 숫자만 다른 문제
+
+    Caution!!!
+    1. DP 재귀함수를 return 할 때 return ret = max(...); 로 해줘야 메모이제이션이 되는것.
