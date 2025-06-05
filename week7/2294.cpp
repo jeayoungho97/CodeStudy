@@ -21,7 +21,7 @@ int main() {
       if (next > k) continue;
       dp[next] = std::min(dp[next], 1 + dp[i]);
     }
-  }
+  } 
 
   if (dp[k] == INF) std::cout << -1 << '\n';
   else std::cout << dp[k] << '\n';
